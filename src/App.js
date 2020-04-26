@@ -24,11 +24,12 @@ function App({ history }) {
     let response;
     try {
       response = await axios.post(
-        "http://localhost:7000/signin/jwt	",
+        "http://localhost:7000/signin/uuid",
         {
           username,
           password
         },
+
         {
           headers: {
             "Content-Type": "application/json"
@@ -44,7 +45,7 @@ function App({ history }) {
          * so that are components can access it without having to prop drill
          */
         setUUID(response.data.uuid);
-        history.push("/Cookie/Users");
+        history.push("/books/");
       }
     } catch (error) {
       /**
@@ -56,51 +57,49 @@ function App({ history }) {
   };
 
   return (
-    <div className="App">
-      <div>
-        <h1>Sign In</h1>
-        <form className="form-inline" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username" className="mr-2">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              className="form-control mr-3"
-              onChange={e => setUserName(e.target.value)}
-              value={username}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password" className="mr-2">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="form-control mr-3"
-              onChange={e => setPassword(e.target.value)}
-              value={password}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
+    <div className="container mt-5 ">
+      <div className="row text-center">
+
+        <div className="col-md-3 mx-auto ">
+          <h1>Sign In</h1>
+
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <input type="text"
+                id="username"
+
+                name="username"
+                placeholder="login"
+                className="form-control"
+                onChange={e => setUserName(e.target.value)}
+                value={username} />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                onChange={e => setPassword(e.target.value)}
+                value={password}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary fadeIn">
+              Submit
           </button>
-        </form>
-        <p className="form-text">
-          <small>
-            The username is <em>username</em> and the password is{" "}
-            <em>password</em>
-          </small>
-        </p>
-        {hasError && (
-          <div className="alert alert-danger" role="alert">
-            {errorMessage}
-          </div>
-        )}
+          </form>
+
+
+          {hasError && (
+            <div className="alert alert-danger" role="alert">
+              {errorMessage}
+            </div>
+          )}
+        </div>
+
       </div>
     </div>
+
+
   );
 }
 
