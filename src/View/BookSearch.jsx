@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CookieContext } from "../Context/SessionContext";
 import axios from "axios";
+import { DropDown } from "../components/Dropdown";
 //import { Container, Row, Col } from "react-bootstrap"
 
 
@@ -9,7 +10,8 @@ import axios from "axios";
 export const BookSearch = (props) => {
     const booksearch = props.match.params.book;
     const [books, setBooks] = useState([]);
-
+    const [bookshelf, setBookshelf] = useState("");
+    const [bookID, setBookID] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
 
@@ -17,7 +19,11 @@ export const BookSearch = (props) => {
      * Getting the token (UUID) we stored in the Context API.
      */
     const [uuid, setUUID] = useContext(CookieContext);
-
+    useEffect(() => {
+        //setBookID()
+        axios
+            .put(`http://localhost:7000/bookshelf/${bookID}/${bookshelf}`)
+    }, [bookshelf])
     useEffect(() => {
         /**
          * The API should not give you back any users unless you are logged in.
@@ -40,7 +46,7 @@ export const BookSearch = (props) => {
             })
             .then(resp => {
                 setBooks(resp.data.books);
-                console.log(resp.data);
+                //console.log(resp.data);
             })
             .catch(err => {
                 console.error(err);
@@ -65,9 +71,10 @@ export const BookSearch = (props) => {
                     Logout
         </button>
             </div> */}
+            <DropDown books={books} />
 
             {books.map(book => {
-
+                //setBookID(book.id)
                 return (
                     // <div className="container">
                     //     <div className="row">
@@ -78,15 +85,28 @@ export const BookSearch = (props) => {
                     //         </div>
                     //     </div>
                     // </div>
+                    //Bookshelf add component
 
                     <div className="container">
+
                         <div className="row p-5 ">
                             <div className="col-md-2">
                                 {book.imageLinks && <img src={book.imageLinks.thumbnail} />}
                             </div>
                             <div className="col-md-3 align-self-center">
                                 <p>{book.title}</p>
-                                <Link to={`/bookshelf/${book.id}`}>add</Link>
+                                <select
+                                    value={bookshelf}
+                                    onChange={e => {
+                                        setBookshelf(e.target.value)
+                                        setBookID(book.id)
+                                    }}>
+                                    <option value="wantToRead">Want to Read</option>
+                                    <option value="currentlyReading">Currently Reading</option>
+                                    <option value="read">Read</option>
+                                </select>
+                                <Link to={`/bookshelf/${book.id}/${bookshelf}`}>{bookshelf}</Link>
+
                             </div>
 
                         </div>

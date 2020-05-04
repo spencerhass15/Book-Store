@@ -45,7 +45,7 @@ function App({ history }) {
          * so that are components can access it without having to prop drill
          */
         setUUID(response.data.uuid);
-        history.push("/books/");
+        history.push("/bookshelf/");
       }
     } catch (error) {
       /**

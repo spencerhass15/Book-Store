@@ -20,7 +20,7 @@ export const Routes = () => {
          * @see examples/11c-authentication-routing/src/components/ProtectedRoute.js
          */}
                 <ProtectedRoute exact path="/search/:book" component={BookSearch} />
-                <ProtectedRoute exact path="/books/:bookid" component={Bookshelf} />
+                <ProtectedRoute exact path="/bookshelf/" component={Bookshelf} />
             </Switch>
         </CookieProvider>
     );
