@@ -21,6 +21,7 @@ export const Routes = () => {
          */}
                 <ProtectedRoute exact path="/search/:book" component={BookSearch} />
                 <ProtectedRoute exact path="/bookshelf/" component={Bookshelf} />
+                <ProtectedRoute exact path="/book/:id" component={Bookshelf} />
             </Switch>
         </CookieProvider>
     );
