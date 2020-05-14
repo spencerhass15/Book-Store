@@ -2,20 +2,23 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CookieContext } from "../Context/SessionContext";
 import axios from "axios";
-import { DropDown } from "../components/Dropdown";
 import Book from "../components/Book";
+import SearchBar from "../components/SearchBar";
+import { BookContext } from "../Context/BookContext";
+
 //import { Container, Row, Col } from "react-bootstrap"
 
 
 
 export const BookSearch = (props) => {
+    // console.log({ props })
     const booksearch = props.match.params.book;
-    const [books, setBooks] = useState([]);
+    const [boooks, setBoooks] = useState([]);
     const [bookshelf, setBookshelf] = useState("");
     const [bookID, setBookID] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-
-
+    //console.log(props);
+    const { books, setBooks } = useContext(BookContext);
     /**
      * Getting the token (UUID) we stored in the Context API.
      */
@@ -42,7 +45,7 @@ export const BookSearch = (props) => {
                 }
             })
             .then(resp => {
-                setBooks(resp.data.books);
+                setBoooks(resp.data.books);
                 //console.log(resp.data);
             })
             .catch(err => {
@@ -52,41 +55,42 @@ export const BookSearch = (props) => {
     }, [uuid]);
 
     //    console.log(list);
+    const addBook = (bookshelf, id) => {
+        // setBookshelfs(bookshelf)
+        axios
+            .put(`http://localhost:7000/bookshelf/${id}/${bookshelf}?id=${uuid}`)
 
+            .then(r => {
+                // console.log(r.data.books[bookshelf])
+                //r.ok && history.push("/bookshelf/")
+                //  if (r.ok) {
+                // console.log("test")
+                setBooks({
+                    ...books,
+                    [bookshelf]:
+                        [...books[bookshelf],
+                        ...r.data.books[bookshelf]]
+
+                })
+                // history.push("/bookshelf/", { books })
+
+                //}
+                //console.log(r.data.books, "resp")
+            })
+    }
     return (
-        <div className="container mt-2 mb-5">
+        <div>
+            <SearchBar />
+            <div className="container mt-2 mb-5">
+            </div>
 
-            {/* <div className="d-flex justify-content-between">
-
-                <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                        setUUID();
-                        props.history.push("/");
-                    }}
-                >
-                    Logout
-        </button>
-                    <DropDown books={books} />
-
-            </div> */}
-
-            {books.map(book => {
-
+            {boooks.map(book => {
                 return (
-
                     <div className="container">
-
                         <div className="row p-5 ">
-                            <Book controls={{ setBookshelf, setBookID }} book={book} {...props} />
-
+                            <Book book={book} {...props} isAdded={addBook} />
                         </div>
-
-
                     </div>
-
-
-
                 )
                 // const key = `user-${user.id}`;
                 // const name = `${user.firstName} ${user.lastName}`;

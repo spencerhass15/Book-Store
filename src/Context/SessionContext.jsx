@@ -15,7 +15,7 @@ export const CookieProvider = ({ children }) => {
      * This effect will happen whenever a child or descendant component
      * calls on setUUID to update the UUID in state.
      */
-    console.log("rendering", { uuid });
+    // console.log("rendering", { uuid });
 
     const set = newUUID => {
         /**

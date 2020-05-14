@@ -14,13 +14,18 @@ function BookDescription({ controls, book, history }) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:7000/bookshelf/${bookID}?id=${uuid}`)
+            .get(`http://localhost:7000/bookshelf/${bookID}?id=${uuid}`,
+                {
+                    params: {
+                        id: uuid,
+                    },
+                })
 
             .then(r => {
                 r.ok && history.push("/bookshelf/")
                 console.log(r)
             })
-    }, [bookshelfs])
+    }, [bookshelfs, uuid])
     return (
         <>
 

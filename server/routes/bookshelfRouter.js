@@ -12,6 +12,7 @@ router.use(auth);
 router
   .route("/:bookId/:shelf")
   .put((req, res) => {
+
     const { bookId, shelf } = req.params;
     if (!["wantToRead", "currentlyReading", "read", "none"].includes(shelf)) {
       return res.status(400).send({
@@ -22,12 +23,15 @@ router
     const userId = getUserId(req);
     const book = Bookshelves.getBook(userId, bookId);
     if (!book) {
+
       axios
         .get(`https://www.googleapis.com/books/v1/volumes/${bookId}`)
         .then((response) => {
+
           const { volumeInfo } = response.data;
           Bookshelves.updateBookshelf(userId, volumeInfo.id, volumeInfo, shelf);
           const books = Bookshelves.getBookshelf(userId);
+
           return res.send({ books });
         })
         .catch((err) => {
@@ -39,6 +43,7 @@ router
     } else {
       Bookshelves.updateBookshelf(userId, book.id, book, shelf);
       const bookshelf = Bookshelves.getBookshelf(userId);
+
       return res.send({ books: bookshelf });
     }
   })

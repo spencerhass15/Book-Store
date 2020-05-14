@@ -27,7 +27,7 @@ export const ProtectedRoute = ({
                     /**
                      * If the user is logged in, return the child component with the props from React Router.
                      */
-                    <Component {...propsFromReactRouter} />
+                    <Component {...propsFromReactRouter} {...restOfPropsFromParent} />
                 ) : (
                         /**
                          * If the user isn't logged in, redirect to the login form, which in this example, is "/".
