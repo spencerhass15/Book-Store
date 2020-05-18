@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { CookieContext } from "../Context/SessionContext";
 import BookDescription from "../components/Book";
 import { BookContext } from "../Context/BookContext";
 
-//<DropDown books={books} />
 
 function Book({ book, isAdded }) {
     const [bookshelfs, setBookshelfs] = useState("");
@@ -13,9 +12,7 @@ function Book({ book, isAdded }) {
     const [bookID, setBookID] = useState("");
 
     const { books, setBooks } = useContext(BookContext);
-    // console.log(books);
-    // console.log("state2", state);
-    //console.log(location);
+
     const test = (o) => {
         setBooks(
             o)
@@ -26,10 +23,6 @@ function Book({ book, isAdded }) {
             .put(`http://localhost:7000/bookshelf/${id}/${bookshelf}?id=${uuid}`)
 
             .then(r => {
-                // console.log(r.data.books[bookshelf])
-                //r.ok && history.push("/bookshelf/")
-                //  if (r.ok) {
-                // console.log("test")
                 test({
                     ...books,
                     [bookshelf]:
@@ -37,13 +30,10 @@ function Book({ book, isAdded }) {
                         ...r.data.books[bookshelf]]
 
                 })
-                // history.push("/bookshelf/", { books })
 
-                //}
-                //console.log(r.data.books, "resp")
             })
     }
-    //console.log(book)
+
     return (
         <>
 
@@ -52,7 +42,6 @@ function Book({ book, isAdded }) {
             </div>
             <div className="col-md-3 align-self-center">
                 <p>{book.title}</p>
-
                 <select
                     value={bookshelfs}
                     onChange={e => addBook(e.target.value, book.id)}>

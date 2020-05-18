@@ -3,29 +3,38 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from "axios";
 import { DropDown } from "../components/Dropdown";
 import { CookieContext } from "../Context/SessionContext";
+import { BookContext } from "../Context/BookContext";
 
 //<DropDown books={books} />
 
-function BookDescription({ controls, book, history }) {
+function BookDescription({ book, isAdded }) {
     const [bookshelfs, setBookshelfs] = useState("");
     const [uuid, setUUID] = useContext(CookieContext);
     const [bookID, setBookID] = useState("");
 
+    const { books, setBooks } = useContext(BookContext);
 
-    useEffect(() => {
+    const Description = (o) => {
+        setBooks(
+            o)
+    }
+    const addBook = (bookshelf, id) => {
+        setBookshelfs(bookshelf)
         axios
-            .get(`http://localhost:7000/bookshelf/${bookID}?id=${uuid}`,
-                {
-                    params: {
-                        id: uuid,
-                    },
-                })
+            .put(`http://localhost:7000/bookshelf/${id}/${bookshelf}?id=${uuid}`)
 
             .then(r => {
-                r.ok && history.push("/bookshelf/")
-                console.log(r)
+                Description({
+                    ...books,
+                    [bookshelf]:
+                        [...books[bookshelf],
+                        ...r.data.books[bookshelf]]
+
+                })
+
             })
-    }, [bookshelfs, uuid])
+    }
+
     return (
         <>
 
@@ -37,18 +46,14 @@ function BookDescription({ controls, book, history }) {
                 <p>{book.description}</p>
                 <select
                     value={bookshelfs}
-                    onChange={e => {
-                        setBookshelfs(e.target.value)
-                        setBookID(book.id)
-                    }}>
+                    onChange={e => addBook(e.target.value, book.id)}>
                     <option value=""></option>
                     <option value="wantToRead">Want to Read</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="read">Read</option>
                 </select>
-
-
             </div>
+
         </>
     )
 

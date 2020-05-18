@@ -46,7 +46,7 @@ export const BookSearch = (props) => {
             })
             .then(resp => {
                 setBoooks(resp.data.books);
-                //console.log(resp.data);
+
             })
             .catch(err => {
                 console.error(err);
@@ -54,17 +54,12 @@ export const BookSearch = (props) => {
             });
     }, [uuid]);
 
-    //    console.log(list);
     const addBook = (bookshelf, id) => {
-        // setBookshelfs(bookshelf)
         axios
             .put(`http://localhost:7000/bookshelf/${id}/${bookshelf}?id=${uuid}`)
 
             .then(r => {
-                // console.log(r.data.books[bookshelf])
-                //r.ok && history.push("/bookshelf/")
-                //  if (r.ok) {
-                // console.log("test")
+
                 setBooks({
                     ...books,
                     [bookshelf]:
@@ -72,10 +67,6 @@ export const BookSearch = (props) => {
                         ...r.data.books[bookshelf]]
 
                 })
-                // history.push("/bookshelf/", { books })
-
-                //}
-                //console.log(r.data.books, "resp")
             })
     }
     return (
@@ -92,14 +83,7 @@ export const BookSearch = (props) => {
                         </div>
                     </div>
                 )
-                // const key = `user-${user.id}`;
-                // const name = `${user.firstName} ${user.lastName}`;
-                // return (
-                //     <div key={key}>
-                //         <img src={user.avatar} alt={name} />
-                //         <p>{name}</p>
-                //     </div>
-                // );
+
             })}
 
 

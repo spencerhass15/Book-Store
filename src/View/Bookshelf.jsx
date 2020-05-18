@@ -1,23 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import { CookieContext } from "../Context/SessionContext";
 import SearchBar from "../components/SearchBar";
 import { BookContext } from "../Context/BookContext";
 
 
 function Bookshelf(props) {
-    //const id = props.match.params.bookid;
-    //const [bookid, setBookid] = useState();
+
     const [uuid, setUUID] = useContext(CookieContext);
+    const [id, setID] = useState();
     const [bookshelfs, setBookshelfs] = useState("");
     const { books, setBooks } = useContext(BookContext);
-    //console.log("uuid", uuid);
-    // console.log("string");
-    // id && setBookid(id)
-    // console.log(props.history);
-    // console.log("state", props.state)
 
-    console.log(books);
     useEffect(() => {
         axios
             .get(`http://localhost:7000/bookshelf/`,
@@ -29,31 +24,8 @@ function Bookshelf(props) {
             )
             .then(resp => resp.data && setBooks({ ...books }))
     }
-        , [])
-    // const addBook = (bookshelf, id) => {
-    //     // setBookshelfs(bookshelf)
-    //     axios
-    //         .put(`http://localhost:7000/bookshelf/${id}/${bookshelf}?id=${uuid}`)
+        , [uuid])
 
-    //         .then(r => {
-    //             // console.log(r.data.books[bookshelf])
-    //             //r.ok && history.push("/bookshelf/")
-    //             //  if (r.ok) {
-    //             // console.log("test")
-    //             setBooks({
-    //                 ...books,
-    //                 [bookshelf]:
-    //                     [...books[bookshelf],
-    //                     ...r.data.books[bookshelf]]
-
-    //             })
-    //             // history.push("/bookshelf/", { books })
-
-    //             //}
-    //             //console.log(r.data.books, "resp")
-    //         })
-    // }
-    // console.log({ books })
     return (
         <div>
             <SearchBar />
@@ -65,8 +37,6 @@ function Bookshelf(props) {
                         <>
 
                             <>
-
-
                                 <div className="container">
                                     <div className="row">
                                         <div className="col-md-2 p-3">
@@ -74,13 +44,12 @@ function Bookshelf(props) {
                                         </div>
                                         <div className="col-md-3 align-self-center">
                                             <p>{bookshelf.title}</p>
-
+                                            <Link to={`/book-description/${id}`}>Book Description</Link>
                                             <select
                                                 value={bookshelfs}
                                                 onChange={e => {
                                                     setBookshelfs(e.target.value)
-                                                    //  addBook("", book.id);
-                                                    // setBookID(book.id)
+
                                                 }}>
                                                 <option value=""></option>
                                                 <option value="wantToRead">Want to Read</option>
@@ -102,8 +71,6 @@ function Bookshelf(props) {
                         <>
 
                             <>
-
-
                                 <div className="container">
                                     <div className="row">
                                         <div className="col-md-2 p-3">
@@ -111,13 +78,12 @@ function Bookshelf(props) {
                                         </div>
                                         <div className="col-md-3 align-self-center">
                                             <p>{bookshelf.title}</p>
-
+                                            <Link to={`/book-description/${id}`}>Book Description</Link>
                                             <select
                                                 value={bookshelfs}
                                                 onChange={e => {
                                                     setBookshelfs(e.target.value)
-                                                    //  addBook("", book.id);
-                                                    // setBookID(book.id)
+
                                                 }}>
                                                 <option value=""></option>
                                                 <option value="wantToRead">Want to Read</option>
@@ -148,13 +114,12 @@ function Bookshelf(props) {
                                         </div>
                                         <div className="col-md-3 align-self-center">
                                             <p>{bookshelf.title}</p>
-
+                                            <Link to={`/book-description/${id}`}>Book Description</Link>
                                             <select
                                                 value={bookshelfs}
                                                 onChange={e => {
                                                     setBookshelfs(e.target.value)
-                                                    //  addBook("", book.id);
-                                                    // setBookID(book.id)
+
                                                 }}>
                                                 <option value=""></option>
                                                 <option value="wantToRead">Want to Read</option>
@@ -168,47 +133,7 @@ function Bookshelf(props) {
                         </>)
                 })
             }
-            {
-                //     books && Object.values(books).map(bookshelf => {
-                //         return bookshelf.length > 0 && bookshelf.map(book => {
 
-                //             return (
-                //                 <>
-
-
-                //                     <div className="container">
-                //                         <div className="row">
-                //                             <div className="col-md-2 p-3">
-                //                                 {book.imageLinks && <img src={book.imageLinks.thumbnail} />}
-                //                             </div>
-                //                             <div className="col-md-3 align-self-center">
-                //                                 <p>{book.title}</p>
-
-                //                                 <select
-                //                                     value={bookshelfs}
-                //                                     onChange={e => {
-                //                                         setBookshelfs(e.target.value)
-                //                                         //  addBook("", book.id);
-                //                                         // setBookID(book.id)
-                //                                     }}>
-                //                                     <option value=""></option>
-                //                                     <option value="wantToRead">Want to Read</option>
-                //                                     <option value="currentlyReading">Currently Reading</option>
-                //                                     <option value="read">Read</option>
-                //                                 </select>
-                //                             </div>
-                //                         </div>
-                //                     </div>
-                //                 </>
-
-
-
-
-                //             )
-                //         });
-
-                //     })
-            }
         </div>
     )
 

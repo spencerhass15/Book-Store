@@ -3,6 +3,7 @@ import App from "../App";
 import { Route, Switch, Link } from "react-router-dom";
 import { BookSearch } from "../View/BookSearch";
 import Bookshelf from "../View/Bookshelf";
+import BookDescription from "../View/BookDescription";
 import { CookieProvider } from "../Context/SessionContext";
 import { ProtectedRoute } from "../components/ProtectedRoute";
 import { BookProvider } from "../Context/BookContext";
@@ -28,6 +29,8 @@ export const Routes = () => {
                     <ProtectedRoute exact path="/search/:book" component={BookSearch} />
                     <ProtectedRoute exact path="/bookshelf/" component={Bookshelf} />
                     <ProtectedRoute exact path="/book/:id" component={Bookshelf} />
+                    <ProtectedRoute exact path="/book-description/:id" component={BookDescription} />
+
                 </Switch>
 
             </CookieProvider>
