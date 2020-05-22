@@ -1,18 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react';
 //import { Link } from "react-router-dom";
 import axios from "axios";
-import { DropDown } from "../components/Dropdown";
 import { CookieContext } from "../Context/SessionContext";
 import { BookContext } from "../Context/BookContext";
 
 //<DropDown books={books} />
 
-function BookDescription({ book, isAdded }) {
+function BookDescription({ book, isAdded, props }) {
+    const bookID = props.match.params.book;
+
     const [bookshelfs, setBookshelfs] = useState("");
     const [uuid, setUUID] = useContext(CookieContext);
-    const [bookID, setBookID] = useState("");
-
     const { books, setBooks } = useContext(BookContext);
+    const [id, setID] = useState();
 
     const Description = (o) => {
         setBooks(
@@ -21,7 +21,7 @@ function BookDescription({ book, isAdded }) {
     const addBook = (bookshelf, id) => {
         setBookshelfs(bookshelf)
         axios
-            .put(`http://localhost:7000/bookshelf/${id}/${bookshelf}?id=${uuid}`)
+            .get(`http://localhost:7000/book/${bookID}?id=${uuid}`)
 
             .then(r => {
                 Description({

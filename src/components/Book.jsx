@@ -13,7 +13,7 @@ function Book({ book, isAdded }) {
 
     const { books, setBooks } = useContext(BookContext);
 
-    const test = (o) => {
+    const add = (o) => {
         setBooks(
             o)
     }
@@ -23,7 +23,7 @@ function Book({ book, isAdded }) {
             .put(`http://localhost:7000/bookshelf/${id}/${bookshelf}?id=${uuid}`)
 
             .then(r => {
-                test({
+                add({
                     ...books,
                     [bookshelf]:
                         [...books[bookshelf],
@@ -42,6 +42,7 @@ function Book({ book, isAdded }) {
             </div>
             <div className="col-md-3 align-self-center">
                 <p>{book.title}</p>
+                <p>{book.authors}</p>
                 <select
                     value={bookshelfs}
                     onChange={e => addBook(e.target.value, book.id)}>

@@ -14,7 +14,6 @@ export const BookProvider = ({ children }) => {
         read: [],
         currentlyReading: []
     });
-    console.log("context", books);
 
 
     return (

@@ -9,12 +9,7 @@ import { ProtectedRoute } from "../components/ProtectedRoute";
 import { BookProvider } from "../Context/BookContext";
 
 export const Routes = () => {
-    // const [books, setBooks] = useState({
-    //     wantToRead: [],
-    //     read: [],
-    //     currentlyReading: []
-    // });
-    //console.log("state", books);
+
     return (
         <BookProvider>
             <CookieProvider>

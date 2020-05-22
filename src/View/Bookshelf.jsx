@@ -29,111 +29,115 @@ function Bookshelf(props) {
     return (
         <div>
             <SearchBar />
-            <h2>Want To Read</h2>
-            {
+            <div className="container">
+                <h2>Want To Read</h2>
+                {
 
-                books["wantToRead"].map(bookshelf => {
-                    return (
-                        <>
-
-                            <>
-                                <div className="container">
-                                    <div className="row">
-                                        <div className="col-md-2 p-3">
-                                            {bookshelf.imageLinks && <img src={bookshelf.imageLinks.thumbnail} />}
-                                        </div>
-                                        <div className="col-md-3 align-self-center">
-                                            <p>{bookshelf.title}</p>
-                                            <Link to={`/book-description/${id}`}>Book Description</Link>
-                                            <select
-                                                value={bookshelfs}
-                                                onChange={e => {
-                                                    setBookshelfs(e.target.value)
-
-                                                }}>
-                                                <option value=""></option>
-                                                <option value="wantToRead">Want to Read</option>
-                                                <option value="currentlyReading">Currently Reading</option>
-                                                <option value="read">Read</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </>
-                        </>)
-                })
-            }
-            <h2>Currently Reading</h2>
-            {
-
-                books["currentlyReading"].map(bookshelf => {
-                    return (
-                        <>
-
-                            <>
-                                <div className="container">
-                                    <div className="row">
-                                        <div className="col-md-2 p-3">
-                                            {bookshelf.imageLinks && <img src={bookshelf.imageLinks.thumbnail} />}
-                                        </div>
-                                        <div className="col-md-3 align-self-center">
-                                            <p>{bookshelf.title}</p>
-                                            <Link to={`/book-description/${id}`}>Book Description</Link>
-                                            <select
-                                                value={bookshelfs}
-                                                onChange={e => {
-                                                    setBookshelfs(e.target.value)
-
-                                                }}>
-                                                <option value=""></option>
-                                                <option value="wantToRead">Want to Read</option>
-                                                <option value="currentlyReading">Currently Reading</option>
-                                                <option value="read">Read</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </>
-                        </>)
-                })
-            }
-            <h2>Read</h2>
-            {
-
-                books["read"].map(bookshelf => {
-                    return (
-                        <>
-
+                    books["wantToRead"].map(bookshelf => {
+                        return (
                             <>
 
+                                <>
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col-md-2 p-3">
+                                                {bookshelf.imageLinks && <img src={bookshelf.imageLinks.thumbnail} />}
+                                            </div>
+                                            <div className="col-md-3 align-self-center">
+                                                <p>{bookshelf.title}</p>
+                                                <p>{bookshelf.authors}</p>
+                                                <Link to={`/book-description/${id}`}>Book Description</Link>
+                                                <select
+                                                    value={bookshelfs}
+                                                    onChange={e => {
+                                                        setBookshelfs(e.target.value)
 
-                                <div className="container">
-                                    <div className="row">
-                                        <div className="col-md-2 p-3">
-                                            {bookshelf.imageLinks && <img src={bookshelf.imageLinks.thumbnail} />}
-                                        </div>
-                                        <div className="col-md-3 align-self-center">
-                                            <p>{bookshelf.title}</p>
-                                            <Link to={`/book-description/${id}`}>Book Description</Link>
-                                            <select
-                                                value={bookshelfs}
-                                                onChange={e => {
-                                                    setBookshelfs(e.target.value)
-
-                                                }}>
-                                                <option value=""></option>
-                                                <option value="wantToRead">Want to Read</option>
-                                                <option value="currentlyReading">Currently Reading</option>
-                                                <option value="read">Read</option>
-                                            </select>
+                                                    }}>
+                                                    <option value=""></option>
+                                                    <option value="wantToRead">Want to Read</option>
+                                                    <option value="currentlyReading">Currently Reading</option>
+                                                    <option value="read">Read</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </>
-                        </>)
-                })
-            }
+                                </>
+                            </>)
+                    })
+                }
+                <h2>Currently Reading</h2>
+                {
 
+                    books["currentlyReading"].map(bookshelf => {
+                        return (
+                            <>
+
+                                <>
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col-md-2 p-3">
+                                                {bookshelf.imageLinks && <img src={bookshelf.imageLinks.thumbnail} />}
+                                            </div>
+                                            <div className="col-md-3 align-self-center">
+                                                <p>{bookshelf.title}</p>
+                                                <p>{bookshelf.authors}</p>
+                                                <Link to={`/book-description/${id}`}>Book Description</Link>
+                                                <select
+                                                    value={bookshelfs}
+                                                    onChange={e => {
+                                                        setBookshelfs(e.target.value)
+
+                                                    }}>
+                                                    <option value=""></option>
+                                                    <option value="wantToRead">Want to Read</option>
+                                                    <option value="currentlyReading">Currently Reading</option>
+                                                    <option value="read">Read</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            </>)
+                    })
+                }
+                <h2>Read</h2>
+                {
+
+                    books["read"].map(bookshelf => {
+                        return (
+                            <>
+
+                                <>
+
+
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col-md-2 p-3">
+                                                {bookshelf.imageLinks && <img src={bookshelf.imageLinks.thumbnail} />}
+                                            </div>
+                                            <div className="col-md-3 align-self-center">
+                                                <p>{bookshelf.title}</p>
+                                                <p>{bookshelf.authors}</p>
+                                                <Link to={`/book-description/${id}`}>Book Description</Link>
+                                                <select
+                                                    value={bookshelfs}
+                                                    onChange={e => {
+                                                        setBookshelfs(e.target.value)
+
+                                                    }}>
+                                                    <option value=""></option>
+                                                    <option value="wantToRead">Want to Read</option>
+                                                    <option value="currentlyReading">Currently Reading</option>
+                                                    <option value="read">Read</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            </>)
+                    })
+                }
+            </div>
         </div>
     )
 

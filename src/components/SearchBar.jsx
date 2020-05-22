@@ -1,8 +1,6 @@
 import React from 'react';
-//import Bar from './Bar.css';
 import { CookieContext } from '../Context/SessionContext';
 import { Link } from 'react-router-dom';
-//import Button from '../button/Link';
 function SearchBar(props) {
     const [search, setSearch] = React.useState('');
     const [cookie] = React.useContext(CookieContext);
